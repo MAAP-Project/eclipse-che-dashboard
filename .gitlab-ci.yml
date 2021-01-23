@@ -1,0 +1,16 @@
+build-image:
+  stage: build
+
+  before_script:
+    - docker info
+    - echo $CI_REGISTRY_IMAGE
+    - echo $CI_COMMIT_REF_NAME
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+
+  script:
+    - docker build -t $CI_COMMIT_REF_NAME apache.Dockerfile
+    - docker tag $CI_COMMIT_REF_NAME $CI_COMMIT_REF_NAME/$CI_COMMIT_REF_NAME
+    - docker push $CI_COMMIT_REF_NAME/$CI_COMMIT_REF_NAME
+
+  tags:
+    - shell
