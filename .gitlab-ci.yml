@@ -14,3 +14,4 @@ build-image:
 
   tags:
     - shell
+    
