@@ -8,9 +8,9 @@ build-image:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
 
   script:
-    - docker build . -f apache.Dockerfile -t $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME
-    - docker tag $CI_COMMIT_REF_NAME $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME
-    - docker push $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME
+    - docker build . -f apache.Dockerfile -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+    #- docker tag $CI_COMMIT_REF_NAME $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
 
   tags:
     - shell
