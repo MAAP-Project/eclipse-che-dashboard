@@ -92,6 +92,11 @@ export async function keycloakSetup(cheBranding: CheBranding, isDevMode?: boolea
 
     keycloakAuth.isPresent = true;
     keycloakAuth.keycloak = keycloak;
+
+    /* tslint:disable */
+    window['_keycloak'] = keycloak;
+    /* tslint:enable */
+
   } catch (e) {
     if (hasSSO) {
       throw new Error(e);
