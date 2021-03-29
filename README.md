@@ -1,4 +1,4 @@
-![CI](https://github.com/eclipse/che-dashboard/workflows/CI/badge.svg)
+![CI](https://mas.maap-project.org/root/che-dashboard/badges/7.25.2-maap/pipeline.svg)
 
 ## About Eclipse Che
 
