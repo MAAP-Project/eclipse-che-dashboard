@@ -45,11 +45,32 @@
   line-height 33px
   margin-top 15px
   margin-bottom 0
-  border 1px solid $list-header-blue-color
   che-border-radius(2px)
 
   &.che-button
     display inline-block
+
+.che-list-search,
+.che-list-add-button > *,
+.che-list-import-button > *
+  border 1px solid $list-header-blue-color
+
+.che-list-delete-button > *,
+.delete-button-disable-message
+  border 1px solid $che-white-color
+
+.che-list-delete-button,
+.che-list-delete-button[disabled]
+  pointer-events: none
+
+.che-list-delete-button > *,
+.delete-button-disable-message
+  button.md-button.che-button[disabled] span
+    pointer-events none
+
+.che-list-delete-button
+  button.md-button.che-button
+    pointer-events auto
 
 .che-list-add-button > *,
 .che-list-import-button > *
@@ -61,8 +82,7 @@
   margin-right 0
 
 .che-list-add-button > *:hover,
-.che-list-import-button > *:hover,
-.che-list-delete-button > *:hover
+.che-list-import-button > *:hover
   border 1px solid $list-header-button-hover-color
   background-color $list-header-button-hover-color !important
 
