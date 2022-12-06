@@ -252,7 +252,7 @@ export class ListWorkspacesCtrl {
       content += 'this selected workspace?';
     }
 
-    return this.confirmDialogService.showConfirmDialog('Remove workspaces', content, { resolve: 'Delete' });
+    return this.confirmDialogService.showConfirmDialog('Remove workspaces', content, { resolve: 'Delete' }, 'Danger');
   }
 
   /**
