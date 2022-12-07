@@ -16,5 +16,5 @@
      uib-tooltip="{{workspaceStatusController.isShowRun() ? 'Run' : 'Stop'}} workspace"
      ng-class="{'disabled' : workspaceStatusController.isButtonDisabled()}">
   <span class="fa"
-        ng-class="{'fa-play' : workspaceStatusController.isShowRun(), 'fa-stop': !workspaceStatusController.isShowRun()}"></span>
+        ng-class="{'fa-play success' : workspaceStatusController.isShowRun(), 'fa-stop danger': !workspaceStatusController.isShowRun()}"></span>
 </div>
