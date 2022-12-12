@@ -11,6 +11,8 @@
  */
 'use strict';
 
+import { FooterLink } from './che-dashboard-configuration.service';
+
 export type IBranding = {
   title: string,
   name: string,
@@ -32,6 +34,9 @@ export type IBranding = {
   workspace: IBrandingWorkspace,
   footer: IBrandingFooter,
   configuration: IBrandingConfiguration,
+  maapLinks: { 
+    [key: string]: FooterLink
+  }
 }
 
 export type IBrandingDocs = {

@@ -17,6 +17,7 @@ import { CheBranding } from './che-branding';
 export type FooterLink = {
   title: string;
   reference: string;
+  longTitle?: string;
 };
 
 /**
@@ -95,6 +96,13 @@ export class CheDashboardConfigurationService {
         reference: this.cheBranding.getProductHelpPath()
       };
     }
+
+    // Add MAAP Links
+    const maapLinks = this.cheBranding.getMaapLinks();
+    for( var key in maapLinks ) {
+      links[key] = maapLinks[key]
+    }
+
     return links;
   }
 

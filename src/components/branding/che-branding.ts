@@ -20,6 +20,7 @@ import {
   IBrandingWorkspace
 } from './branding';
 import { jsonBranding } from './branding.constant';
+import { FooterLink } from './che-dashboard-configuration.service';
 
 const BRANDING_SERVICE_SYMBOL = Symbol('CheBranding');
 const ASSET_PREFIX = 'assets/branding/';
@@ -85,6 +86,7 @@ export class CheBranding {
       footer: this.getFooter(),
       supportEmail: this.getProductSupportEmail(),
       oauthDocs: this.getOauthDocs(),
+      maapLinks: this.getMaapLinks(),
       cli: this.getCLI(),
       docs: this.getDocs(),
       workspace: this.getWorkspace(),
@@ -181,6 +183,13 @@ export class CheBranding {
    */
   getFooter(): IBrandingFooter {
     return this.branding.footer;
+  }
+
+  /**
+   * Returns MAAP Links.
+   */
+  getMaapLinks(): { [key: string]: FooterLink } {
+    return this.branding.maapLinks;
   }
 
   /**
