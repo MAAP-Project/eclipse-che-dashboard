@@ -70,7 +70,7 @@ export const jsonBranding = JSON.stringify({
     'email': ''
   },
   'maapLinks': {
-    'portal': {
+    'portalHome': {
       'reference': 'https://{{ENV}}.maap-project.org/',
       'title': 'MAAP Homepage',
       'longTitle': 'MAAP Homepage'
