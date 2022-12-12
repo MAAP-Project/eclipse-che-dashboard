@@ -20,6 +20,13 @@ export type FooterLink = {
   longTitle?: string;
 };
 
+const enum ENVIRONMENTS {
+  LOCALHOST="LOCALHOST",
+  DIT="DIT",
+  UAT="UAT",
+  OPS="OPS"
+}
+
 /**
  * This class handles configuration data of Dashboard.
  * @author Oleksii Kurinnyi
@@ -29,17 +36,25 @@ export class CheDashboardConfigurationService {
   static $inject = [
     '$q',
     'cheBranding',
+    '$location',
+    '$interpolate'
   ];
 
   $q: ng.IQService;
   cheBranding: CheBranding;
+  $location: ng.ILocationService;
+  $interpolate: ng.IInterpolateService;
 
   constructor(
     $q: ng.IQService,
     cheBranding: CheBranding,
+    $location: ng.ILocationService,
+    $interpolate: ng.IInterpolateService
   ) {
     this.$q = $q;
     this.cheBranding = cheBranding;
+    this.$location = $location;
+    this.$interpolate = $interpolate;
   }
 
   allowedMenuItem(menuItem: che.ConfigurableMenuItem): boolean {
@@ -99,15 +114,38 @@ export class CheDashboardConfigurationService {
 
     // Add MAAP Links
     const maapLinks = this.cheBranding.getMaapLinks();
+    const ENV = this.getEnvironment();
     for( var key in maapLinks ) {
-      links[key] = maapLinks[key]
-    }
+      links[key] = {
+        "reference": this.$interpolate( maapLinks[key].reference )({'ENV': ENV}),
+        "title": maapLinks[key].title,
+        "longTitle": maapLinks[key].longTitle
+      }
+    }  
 
     return links;
   }
 
   getCliTool(): CheCliTool {
     return this.cheBranding.getConfiguration().cheCliTool || 'chectl';
+  }
+
+  /**
+   * Returns a string denoting the system environment (e.g. DIT, UAT, etc.)
+   */
+  getEnvironment(): string {
+    const host = this.$location.host().toUpperCase();
+    let env = "TBD"
+
+    if( host.indexOf(ENVIRONMENTS.LOCALHOST) != -1 || host.indexOf(ENVIRONMENTS.DIT) != -1 ) {
+      env = ENVIRONMENTS.DIT;
+    } else if( host.indexOf(ENVIRONMENTS.UAT) != -1 ) {
+      env = ENVIRONMENTS.UAT;
+    } else if( host.indexOf(ENVIRONMENTS.OPS) != -1 ) {
+      env = ENVIRONMENTS.OPS;
+    }
+
+    return env;
   }
 
   private getDisabledItems(): che.ConfigurableMenuItem[] {

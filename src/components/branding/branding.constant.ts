@@ -71,12 +71,12 @@ export const jsonBranding = JSON.stringify({
   },
   'maapLinks': {
     'portal': {
-      'reference': 'https://dit.maap-project.org/',
+      'reference': 'https://{{ENV}}.maap-project.org/',
       'title': 'MAAP Homepage',
       'longTitle': 'MAAP Homepage'
     },
     'userGuides': {
-      'reference': 'https://dit.maap-project.org/user-guides/',
+      'reference': 'https://{{ENV}}.maap-project.org/user-guides/',
       'title': 'User Guides',
       'longTitle': 'User Guides'
     },
@@ -86,12 +86,12 @@ export const jsonBranding = JSON.stringify({
       'longTitle': 'Report an Issue'
     },
     'openPolicies': {
-      'reference': 'https://dit.maap-project.org/open-policies/',
+      'reference': 'https://{{ENV}}.maap-project.org/open-policies/',
       'title': 'Open Policies',
       'longTitle': 'Open Policies'
     },
     'tos': {
-      'reference': 'https://dit.maap-project.org/terms-of-service/',
+      'reference': 'https://{{ENV}}.maap-project.org/terms-of-service/',
       'title': 'TOS',
       'longTitle': 'Terms of Service'
     }
