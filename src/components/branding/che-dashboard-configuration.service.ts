@@ -18,9 +18,11 @@ export type FooterLink = {
   title: string;
   reference: string;
   longTitle?: string;
+  envSpecific?: boolean;
 };
 
 const enum ENVIRONMENTS {
+  UNKNOWN="UNKNOWN",
   LOCALHOST="LOCALHOST",
   DIT="DIT",
   UAT="UAT",
@@ -122,15 +124,18 @@ export class CheDashboardConfigurationService {
   }
 
   getMaapLinks(): { [key:string]: FooterLink } {
+    const ENV = this.getEnvironment();
     const maapLinks = this.cheBranding.getMaapLinks();
     let links = {};
     for( var key in maapLinks ) {
-      let reference = this.$interpolate( maapLinks[key].reference )(this.cheBranding.getMaapServiceHosts());  // Add Service Host Info
-      reference = this.$interpolate( reference )({"ENV": this.getEnvironment()})  // Add Environment Info
-      links[key] = {
-        "reference": reference,
-        "title": maapLinks[key].title,
-        "longTitle": maapLinks[key].longTitle
+      if( ( maapLinks[key]['envSpecific'] && ENV !== ENVIRONMENTS.UNKNOWN ) || !maapLinks[key]['envSpecific'] ) {
+        let reference = this.$interpolate( maapLinks[key].reference )(this.cheBranding.getMaapServiceHosts());  // Add Service Host Info
+        reference = this.$interpolate( reference )({"ENV": ENV})  // Add Environment Info
+        links[key] = {
+          "reference": reference,
+          "title": maapLinks[key].title,
+          "longTitle": maapLinks[key].longTitle
+        }
       }
     }
     return links;
@@ -141,25 +146,28 @@ export class CheDashboardConfigurationService {
   }
 
   /**
-   * Returns a string denoting the system environment (e.g. DIT, UAT, etc.)
+   * Returns a string denoting the environment (e.g. DIT, UAT, etc.)
    */
   getEnvironment(): string {
     const host = this.$location.host().toUpperCase();
-    let env = ENVIRONMENTS.DIT;
 
     if( host === ENVIRONMENTS.LOCALHOST.valueOf() ) {
-      return env;
-    } 
+      return ENVIRONMENTS.DIT;
+    }
     
-    const re = /ade.([^.]*).maap-project.org/i;
-    const hostEnv = host.match(re)[1].toUpperCase();
+    const re = /ade.([^.]+).maap-project.org/i;
+    let hostMatches = host.match(re);
+    let env = ENVIRONMENTS.UNKNOWN;
+    if( hostMatches != null ) {
+      let hostEnv = hostMatches[1].toUpperCase();
 
-    if( hostEnv === ENVIRONMENTS.DIT.valueOf() ) {
-      env = ENVIRONMENTS.DIT;
-    } else if( hostEnv === ENVIRONMENTS.UAT.valueOf() ) {
-      env = ENVIRONMENTS.UAT;
-    } else if( hostEnv === ENVIRONMENTS.OPS.valueOf() ) {
-      env = ENVIRONMENTS.OPS;
+      if( hostEnv === ENVIRONMENTS.DIT.valueOf() ) {
+        env = ENVIRONMENTS.DIT;
+      } else if( hostEnv === ENVIRONMENTS.UAT.valueOf() ) {
+        env = ENVIRONMENTS.UAT;
+      } else if( hostEnv === ENVIRONMENTS.OPS.valueOf() ) {
+        env = ENVIRONMENTS.OPS;
+      }
     }
 
     return env;

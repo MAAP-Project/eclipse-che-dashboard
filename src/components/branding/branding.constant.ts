@@ -73,12 +73,14 @@ export const jsonBranding = JSON.stringify({
     'portalHome': {
       'reference': '{{PORTAL}}/',
       'title': 'MAAP Homepage',
-      'longTitle': 'MAAP Homepage'
+      'longTitle': 'MAAP Homepage',
+      'envSpecific': true
     },
     'userGuides': {
       'reference': '{{PORTAL}}/user-guides/',
       'title': 'User Guides',
-      'longTitle': 'User Guides'
+      'longTitle': 'User Guides',
+      'envSpecific': true
     },
     'issues': {
       'reference': 'https://github.com/MAAP-Project/ZenHub/issues',
@@ -88,12 +90,14 @@ export const jsonBranding = JSON.stringify({
     'openPolicies': {
       'reference': '{{PORTAL}}/open-policies/',
       'title': 'Open Policies',
-      'longTitle': 'Open Policies'
+      'longTitle': 'Open Policies',
+      'envSpecific': true
     },
     'tos': {
       'reference': '{{PORTAL}}/terms-of-service/',
       'title': 'TOS',
-      'longTitle': 'Terms of Service'
+      'longTitle': 'Terms of Service',
+      'envSpecific': true
     }
   },
   'maapServiceHosts': {
