@@ -36,6 +36,9 @@ export type IBranding = {
   configuration: IBrandingConfiguration,
   maapLinks: { 
     [key: string]: FooterLink
+  },
+  maapServiceHosts: {
+    [key: string]: string
   }
 }
 

@@ -87,6 +87,7 @@ export class CheBranding {
       supportEmail: this.getProductSupportEmail(),
       oauthDocs: this.getOauthDocs(),
       maapLinks: this.getMaapLinks(),
+      maapServiceHosts: this.getMaapServiceHosts(),
       cli: this.getCLI(),
       docs: this.getDocs(),
       workspace: this.getWorkspace(),
@@ -190,6 +191,13 @@ export class CheBranding {
    */
   getMaapLinks(): { [key: string]: FooterLink } {
     return this.branding.maapLinks;
+  }
+
+  /**
+   * Returns MAAP Service Hosts
+   */
+  getMaapServiceHosts(): { [key:string]: string } {
+    return this.branding.maapServiceHosts;
   }
 
   /**

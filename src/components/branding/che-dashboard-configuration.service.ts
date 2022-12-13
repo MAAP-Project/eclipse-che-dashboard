@@ -114,14 +114,15 @@ export class CheDashboardConfigurationService {
 
     // Add MAAP Links
     const maapLinks = this.cheBranding.getMaapLinks();
-    const ENV = this.getEnvironment();
     for( var key in maapLinks ) {
+      let reference = this.$interpolate( maapLinks[key].reference )(this.cheBranding.getMaapServiceHosts());  // Add Service Host Info
+      reference = this.$interpolate( reference )({"ENV": this.getEnvironment()})  // Add Environment Info
       links[key] = {
-        "reference": this.$interpolate( maapLinks[key].reference )({'ENV': ENV}),
+        "reference": reference,
         "title": maapLinks[key].title,
         "longTitle": maapLinks[key].longTitle
       }
-    }  
+    }
 
     return links;
   }
