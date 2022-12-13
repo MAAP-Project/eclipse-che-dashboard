@@ -135,7 +135,7 @@ export class CheDashboardConfigurationService {
    */
   getEnvironment(): string {
     const host = this.$location.host().toUpperCase();
-    let env = "TBD"
+    let env = "DIT"
 
     if( host.indexOf(ENVIRONMENTS.LOCALHOST) != -1 || host.indexOf(ENVIRONMENTS.DIT) != -1 ) {
       env = ENVIRONMENTS.DIT;
