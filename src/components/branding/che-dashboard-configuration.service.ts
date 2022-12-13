@@ -136,13 +136,20 @@ export class CheDashboardConfigurationService {
    */
   getEnvironment(): string {
     const host = this.$location.host().toUpperCase();
-    let env = "DIT"
+    let env = ENVIRONMENTS.DIT;
 
-    if( host.indexOf(ENVIRONMENTS.LOCALHOST) != -1 || host.indexOf(ENVIRONMENTS.DIT) != -1 ) {
+    if( host === ENVIRONMENTS.LOCALHOST.valueOf() ) {
+      return env;
+    } 
+    
+    const re = /ade.([^.]*).maap-project.org/i;
+    const hostEnv = host.match(re)[1].toUpperCase();
+
+    if( hostEnv === ENVIRONMENTS.DIT.valueOf() ) {
       env = ENVIRONMENTS.DIT;
-    } else if( host.indexOf(ENVIRONMENTS.UAT) != -1 ) {
+    } else if( hostEnv === ENVIRONMENTS.UAT.valueOf() ) {
       env = ENVIRONMENTS.UAT;
-    } else if( host.indexOf(ENVIRONMENTS.OPS) != -1 ) {
+    } else if( hostEnv === ENVIRONMENTS.OPS.valueOf() ) {
       env = ENVIRONMENTS.OPS;
     }
 
