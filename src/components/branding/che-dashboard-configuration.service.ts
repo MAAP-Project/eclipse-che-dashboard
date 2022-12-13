@@ -113,7 +113,17 @@ export class CheDashboardConfigurationService {
     }
 
     // Add MAAP Links
+    const maapLinks = this.getMaapLinks();
+    for( var key in maapLinks ) {
+      links[key] = maapLinks[key];
+    }
+
+    return links;
+  }
+
+  getMaapLinks(): { [key:string]: FooterLink } {
     const maapLinks = this.cheBranding.getMaapLinks();
+    let links = {};
     for( var key in maapLinks ) {
       let reference = this.$interpolate( maapLinks[key].reference )(this.cheBranding.getMaapServiceHosts());  // Add Service Host Info
       reference = this.$interpolate( reference )({"ENV": this.getEnvironment()})  // Add Environment Info
@@ -123,7 +133,6 @@ export class CheDashboardConfigurationService {
         "longTitle": maapLinks[key].longTitle
       }
     }
-
     return links;
   }
 
