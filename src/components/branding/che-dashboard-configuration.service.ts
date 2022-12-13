@@ -156,7 +156,7 @@ export class CheDashboardConfigurationService {
     }
     
     const re = /ade.([^.]+).maap-project.org/i;
-    let hostMatches = host.match(re);
+    const hostMatches = host.match(re);
     let env = ENVIRONMENTS.UNKNOWN;
     if( hostMatches != null ) {
       let hostEnv = hostMatches[1].toUpperCase();
