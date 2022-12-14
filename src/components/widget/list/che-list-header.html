@@ -31,12 +31,12 @@
     <che-filter-selector che-values="filterValues"
                          ng-if="filterValues && filterValues.length > 0 && !hideFilter"
                          che-on-change="onFilterChanged" class="che-list-filter"></che-filter-selector>
-    <che-button-primary class="che-list-delete-button"
+    <che-button-danger class="che-list-delete-button"
                         id="delete-item-button"
                         ng-if="deleteButtonTitle && !hideDelete"
                         che-button-title="{{deleteButtonTitle}}"
                         ng-click="onDelete()"
-                        ng-disabled="deleteButtonDisable === true"></che-button-primary>
+                        ng-disabled="deleteButtonDisable === true"></che-button-danger>
     <span ng-if="deleteButtonDisableMessage && !hideDelete && deleteButtonDisable"
           class="delete-button-disable-message">
       {{deleteButtonDisableMessage}}
