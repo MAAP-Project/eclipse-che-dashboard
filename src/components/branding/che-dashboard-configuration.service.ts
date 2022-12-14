@@ -17,7 +17,17 @@ import { CheBranding } from './che-branding';
 export type FooterLink = {
   title: string;
   reference: string;
+  longTitle?: string;
+  envSpecific?: boolean;
 };
+
+const enum ENVIRONMENTS {
+  UNKNOWN="UNKNOWN",
+  LOCALHOST="LOCALHOST",
+  DIT="DIT",
+  UAT="UAT",
+  OPS="OPS"
+}
 
 /**
  * This class handles configuration data of Dashboard.
@@ -28,17 +38,25 @@ export class CheDashboardConfigurationService {
   static $inject = [
     '$q',
     'cheBranding',
+    '$location',
+    '$interpolate'
   ];
 
   $q: ng.IQService;
   cheBranding: CheBranding;
+  $location: ng.ILocationService;
+  $interpolate: ng.IInterpolateService;
 
   constructor(
     $q: ng.IQService,
     cheBranding: CheBranding,
+    $location: ng.ILocationService,
+    $interpolate: ng.IInterpolateService
   ) {
     this.$q = $q;
     this.cheBranding = cheBranding;
+    this.$location = $location;
+    this.$interpolate = $interpolate;
   }
 
   allowedMenuItem(menuItem: che.ConfigurableMenuItem): boolean {
@@ -95,11 +113,64 @@ export class CheDashboardConfigurationService {
         reference: this.cheBranding.getProductHelpPath()
       };
     }
+
+    // Add MAAP Links
+    const maapLinks = this.getMaapLinks();
+    for( var key in maapLinks ) {
+      links[key] = maapLinks[key];
+    }
+
+    return links;
+  }
+
+  getMaapLinks(): { [key:string]: FooterLink } {
+    const ENV = this.getEnvironment();
+    const maapLinks = this.cheBranding.getMaapLinks();
+    let links = {};
+    for( var key in maapLinks ) {
+      if( ( maapLinks[key]['envSpecific'] && ENV !== ENVIRONMENTS.UNKNOWN ) || !maapLinks[key]['envSpecific'] ) {
+        let reference = this.$interpolate( maapLinks[key].reference )(this.cheBranding.getMaapServiceHosts());  // Add Service Host Info
+        reference = this.$interpolate( reference )({"ENV": ENV})  // Add Environment Info
+        links[key] = {
+          "reference": reference,
+          "title": maapLinks[key].title,
+          "longTitle": maapLinks[key].longTitle
+        }
+      }
+    }
     return links;
   }
 
   getCliTool(): CheCliTool {
     return this.cheBranding.getConfiguration().cheCliTool || 'chectl';
+  }
+
+  /**
+   * Returns a string denoting the environment (e.g. DIT, UAT, etc.)
+   */
+  getEnvironment(): string {
+    const host = this.$location.host().toUpperCase();
+
+    if( host === ENVIRONMENTS.LOCALHOST.valueOf() ) {
+      return ENVIRONMENTS.DIT;
+    }
+    
+    const re = /ade.([^.]+).maap-project.org/i;
+    const hostMatches = host.match(re);
+    let env = ENVIRONMENTS.UNKNOWN;
+    if( hostMatches != null ) {
+      let hostEnv = hostMatches[1].toUpperCase();
+
+      if( hostEnv === ENVIRONMENTS.DIT.valueOf() ) {
+        env = ENVIRONMENTS.DIT;
+      } else if( hostEnv === ENVIRONMENTS.UAT.valueOf() ) {
+        env = ENVIRONMENTS.UAT;
+      } else if( hostEnv === ENVIRONMENTS.OPS.valueOf() ) {
+        env = ENVIRONMENTS.OPS;
+      }
+    }
+
+    return env;
   }
 
   private getDisabledItems(): che.ConfigurableMenuItem[] {
