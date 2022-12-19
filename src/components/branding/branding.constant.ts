@@ -53,7 +53,9 @@ export const jsonBranding = JSON.stringify({
   'configuration': {
     'menu': {
       'disabled': [
-        'factories'
+        'administration',
+        'factories',
+        'organizations'
       ]
     },
     'features': {
