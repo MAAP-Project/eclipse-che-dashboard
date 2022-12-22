@@ -36,9 +36,7 @@
   "configuration": {
     "menu": {
       "disabled": [
-        "administration",
-        "factories",
-        "organizations"
+        "factories"
       ]
     },
     "features": {
