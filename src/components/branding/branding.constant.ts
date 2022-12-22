@@ -53,9 +53,7 @@ export const jsonBranding = JSON.stringify({
   'configuration': {
     'menu': {
       'disabled': [
-        'administration',
-        'factories',
-        'organizations'
+        'factories'
       ]
     },
     'features': {
@@ -70,40 +68,6 @@ export const jsonBranding = JSON.stringify({
     'content': '',
     'links': [],
     'email': ''
-  },
-  'maapLinks': {
-    'portalHome': {
-      'reference': '{{PORTAL}}/',
-      'title': 'MAAP Homepage',
-      'longTitle': 'MAAP Homepage',
-      'envSpecific': true
-    },
-    'userGuides': {
-      'reference': '{{PORTAL}}/user-guides/',
-      'title': 'User Guides',
-      'longTitle': 'User Guides',
-      'envSpecific': true
-    },
-    'issues': {
-      'reference': 'https://github.com/MAAP-Project/ZenHub/issues',
-      'title': 'Report an Issue',
-      'longTitle': 'Report an Issue'
-    },
-    'openPolicies': {
-      'reference': '{{PORTAL}}/open-policies/',
-      'title': 'Open Policies',
-      'longTitle': 'Open Policies',
-      'envSpecific': true
-    },
-    'tos': {
-      'reference': '{{PORTAL}}/terms-of-service/',
-      'title': 'TOS',
-      'longTitle': 'Terms of Service',
-      'envSpecific': true
-    }
-  },
-  'maapServiceHosts': {
-    'PORTAL': 'https://{{ENV}}.maap-project.org'
   }
 }
 );
