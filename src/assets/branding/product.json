@@ -20,11 +20,7 @@
     "name" : "CHE"
   },
   "docs" : {
-    "stack" : "/docs/creating-starting-workspaces.html",
-    "workspace" : "/docs/what-are-workspaces.html",
-    "factory" : "/docs/factories-getting-started.html",
-    "organization": "/docs/organizations.html",
-    "general": "/docs"
+    "workspace" : "https://www.eclipse.org/che/docs/stable/overview/introduction-to-eclipse-che/#_workspace_model"
   },
   "maapLinks": {
     "portalHome": {
