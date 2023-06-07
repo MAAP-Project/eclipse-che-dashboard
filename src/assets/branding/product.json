@@ -48,7 +48,7 @@
     },
     "tos": {
       "reference": "{{PORTAL}}/terms-of-service/",
-      "title": "TOS",
+      "title": "ToS",
       "longTitle": "Terms of Service",
       "envSpecific": true
     }
