@@ -1,4 +1,4 @@
-![CI](https://mas.maap-project.org/root/che-dashboard/badges/7.25.2-maap/pipeline.svg)
+![CI](https://repo.dit.maap-project.org/root/eclipse-che-dashboard/badges/7.25.2-maap/pipeline.svg)
 
 ## About Eclipse Che
 
